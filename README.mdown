@@ -43,42 +43,42 @@ Sample codes are provided in the Demo folder inside the project.
 
 2. Assign delegate
 
-    ```objective-c
-    // in your root view controller
-    - (void) viewDidLoad 
-    {
-        [super viewDidLoad];
+```objective-c
+// in your root view controller
+- (void) viewDidLoad 
+{
+   [super viewDidLoad];
    
-        self.slideNavigationViewController.delegate = self;
-    }
-    ```
+   self.slideNavigationViewController.delegate = self;
+}
+```
 
 3. Trigger the slide animation, e.g. revealing menu on the left (will perform slide animation with right direction)
 
-    ```objective-c
-    // your action method, e.g. in your root view controller
-    - (IBAction) showMenu:(id)sender
-    {
-        YourMenuViewController menuController = ...; /* init your menu controller */
-        [self.slideNavigationViewController slideForViewController:menuController
-                                                         direction:MWFSlideDirectionRight
-                                       portraitOrientationDistance:150
-                                       landscapeOrientationDistance:240];
-    }
-    ```
+```objective-c
+// your action method, e.g. in your root view controller
+- (IBAction) showMenu:(id)sender
+{
+   YourMenuViewController menuController = ...; /* init your menu controller */
+   [self.slideNavigationViewController slideForViewController:menuController
+                                                    direction:MWFSlideDirectionRight
+                                  portraitOrientationDistance:150
+                                 landscapeOrientationDistance:240];
+}
+```
 
 4. Slide the primary/root view back to conceal the secondary view.
 
-    ```objective-c
-    // your action method, e.g. in your root view controller
-    - (IBAction) closeMenu:(id)sender
-    {
-        [self.slideNavigationViewController slideForViewController:nil
-                                                         direction:MWFSlideDirectionNone
-                                       portraitOrientationDistance:0
-                                      landscapeOrientationDistance:0];
-    }
-    ```
+```objective-c
+// your action method, e.g. in your root view controller
+- (IBAction) closeMenu:(id)sender
+{
+   [self.slideNavigationViewController slideForViewController:nil
+                                                    direction:MWFSlideDirectionNone
+                                  portraitOrientationDistance:0
+                                 landscapeOrientationDistance:0];
+}
+```
 
 ---
 ### Documentation
