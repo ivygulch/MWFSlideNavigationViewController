@@ -36,11 +36,13 @@ Sample codes are provided in the Demo folder inside the project.
 #### Basic Usage
 
 1. Initialize the controller with your root controller.
+
     ```objective-c
     MWFSlideNavigationViewController * ctl = [[MWFSlideNavigationViewController alloc] initWithRootViewController:yourRootViewController];`
     ```
 
 2. Assign delegate
+
     ```objective-c
     // in your root view controller
     - (void) viewDidLoad 
@@ -52,6 +54,7 @@ Sample codes are provided in the Demo folder inside the project.
     ```
 
 3. Trigger the slide animation, e.g. revealing menu on the left (will perform slide animation with right direction)
+
     ```objective-c
     // your action method, e.g. in your root view controller
     - (IBAction) showMenu:(id)sender
@@ -65,6 +68,7 @@ Sample codes are provided in the Demo folder inside the project.
     ```
 
 4. Slide the primary/root view back to conceal the secondary view.
+
     ```objective-c
     // your action method, e.g. in your root view controller
     - (IBAction) closeMenu:(id)sender
