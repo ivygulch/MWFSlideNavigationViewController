@@ -1,9 +1,9 @@
 
 ### About MWFSlideNavigationViewController
 
-MWFSlideNavigationViewController is a container view controller that manages primary and secondary view controller. Primary view controller is the root view controller initialized with the controller. A secondary view controller can be revealed beneath the primary view controller with a slide navigation.
+MWFSlideNavigationViewController is a container view controller that manages primary and secondary view controller. Primary view controller is the root view controller initialized with the controller. While the secondary controller's view is 'hidden' beneath the primary/root, It's revealed by sliding the primary/root view in one of the 4 directions supported (up, left, down, right). 
 
-Imagine the latest facebook iphone app, a menu view beneath its main view is displayed when user taps on menu button. Or in Piggie app, sets of button are displayed when the lightning button is tapped.
+It works similar to the Facebook iPhone app, a menu view is revealed when user taps on the menu button. Or in the Piggie app, shortcut buttons view is revealed when user taps the lightning button.
 
 ---
 ### Licensing
@@ -30,8 +30,51 @@ THE SOFTWARE.
 ---
 ### How to use
 
+Read the <a href="http://meiwinfu.com/2012/01/28/os1/">blog post</a> for quick overview.
 Sample codes are provided in the Demo folder inside the project.
-And read the <a href="http://meiwinfu.com/2012/01/28/os1/">blog post</a>
+
+#### Basic Usage
+
+1. Initialize the controller with your root controller.
+```objective-c
+MWFSlideNavigationViewController * ctl = [[MWFSlideNavigationViewController alloc] initWithRootViewController:yourRootViewController];`
+```
+
+2. Assign delegate
+```objective-c
+// in your root view controller
+- (void) viewDidLoad 
+{
+   [super viewDidLoad];
+   
+    self.slideNavigationViewController.delegate = self;
+}
+```
+
+3. Trigger the slide animation, e.g. revealing menu on the left (will perform slide animation with right direction)
+```objective-c
+// your action method, e.g. in your root view controller
+- (IBAction) showMenu:(id)sender
+{
+   YourMenuViewController menuController = ...; /* init your menu controller */
+   [self.slideNavigationViewController slideForViewController:menuController
+                                                    direction:MWFSlideDirectionRight
+                                  portraitOrientationDistance:150
+                                 landscapeOrientationDistance:240];
+}
+```
+
+4. Slide the primary/root view back to conceal the secondary view.
+```objective-c
+// your action method, e.g. in your root view controller
+- (IBAction) closeMenu:(id)sender
+{
+   [self.slideNavigationViewController slideForViewController:nil
+                                                    direction:MWFSlideDirectionNone
+                                  portraitOrientationDistance:0
+                                 landscapeOrientationDistance:0];
+}
+```
 
 ---
 ### Documentation
