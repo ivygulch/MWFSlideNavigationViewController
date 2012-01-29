@@ -81,22 +81,20 @@ typedef enum {
 /** The `MWFSlideNavigationViewController` is a container view controller implementation
  * that manages a primary and secondary view controller.
  *
- * Primary view controller is basically the root view controller given during the class 
+ * Primary view controller is basically the root view controller provided during the class 
  * initialization using [MWFSlideNavigationViewController initWithRootViewController:] method. 
- * It occupies the whole of `MWFSlideNavigationViewController` view area.
+ * The primary/root view fills the whole of `MWFSlideNavigationViewController` view area.
  *
- * Secondary view controller is the 'hidden' view controller that will be revealed with slide
- * animation on the primary view controller 
- * using [MWFSlideNavigationViewController slideForViewController:direction:portraitOrientationDistance:landscapeOrientationDistance:] 
- * method. The slide direction can be one of `MWFSlideDirectionUp`, `MWFSlideDirectionLeft`, `MWFSlideDirectionDown` or `MWFSlideDirectionRight`.
- * `MWFSlideDirectionNone` is used to slide the primary view controller back, resulting in the secondary
- * view controller being concealed.
+ * Secondary view controller is the 'hidden' beneath the primary/root view.
+ * It is revealed by sliding the primary/root view in one of the 4 directions supported (`MWFSlideDirectionUp`, `MWFSlideDirectionLeft`, `MWFSlideDirectionDown` or `MWFSlideDirectionRight`),
+ * using [MWFSlideNavigationViewController slideForViewController:direction:portraitOrientationDistance:landscapeOrientationDistance:] method.
+ * The same method is used to slide the primary/root view back, by specifying `MWFSlideDirectionNone` as the slide direction.
  *
  * This view controller notifies its delegate in response to the sliding event. The delegate is a custom object
  * provided by your application that conforms to the MWFSlideNavigationViewControllerDelegate protocol. You can use
  * the callback methods to perform additional setup or cleanup tasks.
  *
- * @warning *Important:* Secondary view controller is always removed when it's concealed.
+ * @warning *Important:* When not showing, secondary view controller is removed from slide navigation controller and not retained.
  * It's the responsibilty of application to retain it if needed.
  *
  */
@@ -127,7 +125,7 @@ typedef enum {
 
 /* @name Sliding view controller */
 
-/** Perform slide animation that reveals the given secondary view controller. If the direction is `MWFSlideDirectionNone`, the secondary view controller and distance is assumed `nil` and 0.
+/** Perform slide animation that reveals/hides the specified `viewController`. If the direction is `MWFSlideDirectionNone`, the values provided for `viewController` and distances are ignored, it's advised to just specify nil for `viewController` and 0 for distances.
  *
  * @param viewController The secondary view controller or `nil` if direction is `MWFSlideDirectionNone`.
  * @param direction The slide direction: `MWFSlideDirectionUp`, `MWFSlideDirectionLeft`, `MWFSlideDirectionDown`, `MWFSlideDirectionRight` or `MWFSlideDirectionNone`.
