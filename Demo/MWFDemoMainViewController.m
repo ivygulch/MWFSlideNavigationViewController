@@ -156,6 +156,7 @@
         overlay.tag = VIEWTAG_OVERLAY;
         UITapGestureRecognizer * gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close:)];
         [overlay addGestureRecognizer:gr];
+        overlay.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         [self.navigationController.view addSubview:overlay];
         
     }
