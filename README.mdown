@@ -41,7 +41,7 @@ Sample codes are provided in the Demo folder inside the project.
   MWFSlideNavigationViewController * ctl = [[MWFSlideNavigationViewController alloc] initWithRootViewController:yourRootViewController];`
   ```
 
-* Assign delegate
+* Assign delegate and dataSource
 
   ```objective-c
   // in your root view controller
@@ -49,6 +49,7 @@ Sample codes are provided in the Demo folder inside the project.
   {
      [super viewDidLoad];
      self.slideNavigationViewController.delegate = self;
+     self.slideNavigationViewController.dataSource = self;
   }
   ```
 
@@ -58,11 +59,7 @@ Sample codes are provided in the Demo folder inside the project.
   // your action method, e.g. in your root view controller
   - (IBAction) showMenu:(id)sender
   {
-     YourMenuViewController menuController = ...; /* init your menu controller */
-     [self.slideNavigationViewController slideForViewController:menuController
-                                                      direction:MWFSlideDirectionRight
-                                    portraitOrientationDistance:150
-                                   landscapeOrientationDistance:240];
+     [self.slideNavigationViewController slideWithDirection:MWFSlideDirectionRight];
   }
   ```
 
@@ -72,14 +69,45 @@ Sample codes are provided in the Demo folder inside the project.
   // your action method, e.g. in your root view controller
   - (IBAction) closeMenu:(id)sender
   {
-     [self.slideNavigationViewController slideForViewController:nil
-                                                      direction:MWFSlideDirectionNone
-                                    portraitOrientationDistance:0
-                                   landscapeOrientationDistance:0];
+     [self.slideNavigationViewController slideWithDirection:MWFSlideDirectionNone];
   }
   ```
 
+* Implementing Delegate
 
+  ```objective-c
+  - (NSInteger) slideNavigationViewController:(MWFSlideNavigationViewController *)controller 
+                     distanceForSlideDirecton:(MWFSlideDirection)direction 
+                          portraitOrientation:(BOOL)portraitOrientation
+  {
+    if (portraitOrientation)
+    {
+       return 180;
+    }
+    else
+    {
+       return 100;
+    }
+  }
+  ```
+  
+* Implementing DataSource
+
+  ```objective-c
+  - (UIViewController *) slideNavigationViewController:(MWFSlideNavigationViewController *)controller 
+                        viewControllerForSlideDirecton:(MWFSlideDirection)direction
+  {
+     YourMenuViewController * menuCtl = ...; // alloc and init your controller
+     return menuCtl;
+  }
+  ```
+  
+* Enable sliding with pan/swipe gesture
+
+  ```objective-c
+     slideNavigationController.panEnabled = YES;
+  ```
+  
 ---
 ### Documentation
 

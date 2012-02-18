@@ -80,9 +80,12 @@
 - (void) slideNone:(id)sender {
 
     // if viewController provided is not nil, it will be ignored
+    /*
     [self.slideNavigationViewController slideForViewController:self 
                                                      direction:MWFSlideDirectionNone 
                                    portraitOrientationDistance:100 
                                   landscapeOrientationDistance:100];
+    */
+    [self.slideNavigationViewController slideWithDirection:MWFSlideDirectionNone];
 }
 @end

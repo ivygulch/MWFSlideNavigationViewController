@@ -29,7 +29,7 @@
 		3DFA88B614CEBAFA001C9792 /* MWFSlideNavigationViewControllerDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MWFSlideNavigationViewControllerDemo-Info.plist"; sourceTree = "<group>"; };
 		3DFA88B814CEBAFA001C9792 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3DFA88BA14CEBAFA001C9792 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3DFA88BC14CEBAFA001C9792 /* MWFSlideNavigationViewController-Prefix.pch */ = {isa = PBXFileReference; path = "MWFSlideNavigationViewController-Prefix.pch"; sourceTree = "<group>"; };
+		3DFA88BC14CEBAFA001C9792 /* MWFSlideNavigationViewController-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWFSlideNavigationViewController-Prefix.pch"; sourceTree = "<group>"; };
 		3DFA88BD14CEBAFA001C9792 /* MWFAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWFAppDelegate.h; sourceTree = "<group>"; };
 		3DFA88BE14CEBAFA001C9792 /* MWFAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWFAppDelegate.m; sourceTree = "<group>"; };
 		3DFA88C614CEBBB1001C9792 /* MWFSlideNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWFSlideNavigationViewController.h; sourceTree = "<group>"; };
@@ -213,7 +213,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Meiwin Fu";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Meiwin Fu";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -228,6 +229,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PROVISIONING_PROFILE = "D09EE1F1-17B9-4CAB-AD36-35448ED6D79A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D09EE1F1-17B9-4CAB-AD36-35448ED6D79A";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;

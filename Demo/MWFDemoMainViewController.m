@@ -94,6 +94,7 @@
     self.slideRightButton.frame = CGRectMake(20, 190, s.width-40, 50);
     
     self.slideNavigationViewController.delegate = self;
+    self.slideNavigationViewController.dataSource = self;
 }
 
 - (void)viewDidUnload
@@ -114,12 +115,15 @@
 
 #pragma mark Actions
 - (void) _slide:(MWFSlideDirection)direction {
+    /*
     MWFDemoSecondaryViewController * secCtl = [[MWFDemoSecondaryViewController alloc] init];
     UINavigationController * navCtl = [[UINavigationController alloc] initWithRootViewController:secCtl];
     [self.slideNavigationViewController slideForViewController:navCtl 
                                                      direction:direction 
                                    portraitOrientationDistance:180 
                                   landscapeOrientationDistance:100];
+    */
+    [self.slideNavigationViewController slideWithDirection:direction];
 }
 - (void) slideUp:(id)sender {
     [self _slide:MWFSlideDirectionUp];
@@ -136,7 +140,7 @@
 - (void) close:(id)sender {
     [self _slide:MWFSlideDirectionNone];
 }
-#pragma mark MWFSlideNavigationViewControllerDelegate
+#pragma mark - MWFSlideNavigationViewControllerDelegate
 #define VIEWTAG_OVERLAY 1100
 - (void) slideNavigationViewController:(MWFSlideNavigationViewController *)controller willPerformSlideFor:(UIViewController *)targetController withSlideDirection:(MWFSlideDirection)slideDirection distance:(CGFloat)distance orientation:(UIInterfaceOrientation)orientation {
 
@@ -148,7 +152,7 @@
     } else {
         
         UIView * overlay = [[UIView alloc] initWithFrame:self.navigationController.view.bounds];
-        overlay.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        overlay.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
         overlay.tag = VIEWTAG_OVERLAY;
         UITapGestureRecognizer * gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close:)];
         [overlay addGestureRecognizer:gr];
@@ -156,14 +160,35 @@
         
     }
 }
-/*
-- (void) slideNavigationViewController:(MWFSlideNavigationViewController *)controller didPerformSlideFor:(UIViewController *)targetController withSlideDirection:(MWFSlideDirection)slideDirection distance:(CGFloat)distance orientation:(UIInterfaceOrientation)orientation {
-    
-    if (slideDirection == MWFSlideDirectionNone) {
-        self.navigationController.view.userInteractionEnabled = YES;
-    } else {
-        self.navigationController.view.userInteractionEnabled = NO;
+- (void) slideNavigationViewController:(MWFSlideNavigationViewController *)controller animateSlideFor:(UIViewController *)targetController withSlideDirection:(MWFSlideDirection)slideDirection distance:(CGFloat)distance orientation:(UIInterfaceOrientation)orientation
+{
+    UIView * overlay = [self.navigationController.view viewWithTag:VIEWTAG_OVERLAY];
+    if (slideDirection == MWFSlideDirectionNone)
+    {
+        overlay.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+    }
+    else
+    {
+        overlay.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }
 }
-*/
+- (NSInteger) slideNavigationViewController:(MWFSlideNavigationViewController *)controller distanceForSlideDirecton:(MWFSlideDirection)direction portraitOrientation:(BOOL)portraitOrientation
+{
+    if (portraitOrientation)
+    {
+        return 180;
+    }
+    else
+    {
+        return 100;
+    }
+}
+#pragma mark - MWFSlideNavigationViewControllerDataSource
+- (UIViewController *) slideNavigationViewController:(MWFSlideNavigationViewController *)controller viewControllerForSlideDirecton:(MWFSlideDirection)direction
+{
+    MWFDemoSecondaryViewController * secCtl = [[MWFDemoSecondaryViewController alloc] init];
+    UINavigationController * navCtl = [[UINavigationController alloc] initWithRootViewController:secCtl];
+    return navCtl;
+}
+
 @end

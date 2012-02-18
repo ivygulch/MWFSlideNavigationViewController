@@ -61,6 +61,20 @@ typedef enum {
                               distance:(CGFloat)distance
                            orientation:(UIInterfaceOrientation)orientation;
 
+/** Sent to receiver when slide animation is to be performed.
+ *
+ * @param controller The slide navigation view controller.
+ * @param targetController The secondary view controller to be revealed/concealed by the animation.
+ * @param slideDirection The animation's slide direction.
+ * @param distance The slide distance.
+ * @param orientation The current interface orientation.
+ */
+- (void) slideNavigationViewController:(MWFSlideNavigationViewController *)controller
+                       animateSlideFor:(UIViewController *)targetController
+                    withSlideDirection:(MWFSlideDirection)slideDirection
+                              distance:(CGFloat)distance
+                           orientation:(UIInterfaceOrientation)orientation;
+;
 /** Sent to receiver after sliding animation is completed.
  *
  * @param controller The slide navigation view controller.
@@ -74,6 +88,37 @@ typedef enum {
                     withSlideDirection:(MWFSlideDirection)slideDirection
                               distance:(CGFloat)distance
                            orientation:(UIInterfaceOrientation)orientation;
+
+/** Sent to receiver when panning is detected.
+ *
+ * @param controller The slide navigation view controller.
+ * @param direction The slide direction.
+ * @param portraitOrientation If portrait, `YES`; otherwise `NO`.
+ * @return The slide distance.
+ */
+- (NSInteger) slideNavigationViewController:(MWFSlideNavigationViewController *)controller
+                   distanceForSlideDirecton:(MWFSlideDirection)direction
+                        portraitOrientation:(BOOL)portraitOrientation
+;
+
+@end
+
+#pragma mark - 
+/** The `MWFSlideNavigationViewControllerDataSource` protocol defines methods a slide navigation controller data source can implement to provide view controller to be revealed when user pans with 2 fingers.
+ */
+@protocol MWFSlideNavigationViewControllerDataSource
+@optional
+/** @name Providing content */
+
+/** Sent to receiver when panning is detected.
+ *
+ * @param controller The slide navigation view controller.
+ * @param direction The slide direction.
+ * @return The view controller to be revealed upon sliding.
+ */
+- (UIViewController *) slideNavigationViewController:(MWFSlideNavigationViewController *)controller
+                      viewControllerForSlideDirecton:(MWFSlideDirection)direction
+;
 
 @end
 
@@ -98,11 +143,14 @@ typedef enum {
  * It's the responsibilty of application to retain it if needed.
  *
  */
-@interface MWFSlideNavigationViewController : UIViewController {
+@interface MWFSlideNavigationViewController : UIViewController <UIGestureRecognizerDelegate> {
     UIViewController * _secondaryViewController;
+    MWFSlideDirection _panningDirection;
 }
 /** The receiver's delegate or `nil` if it doesn't have a delegate. */
 @property (nonatomic, weak) id<MWFSlideNavigationViewControllerDelegate> delegate;
+/** The receiver's dataSource or `nil` if it doesn't have a dataSource. */
+@property (nonatomic, weak) id<MWFSlideNavigationViewControllerDataSource> dataSource;
 /** The root view controller. */
 @property (nonatomic, strong) UIViewController * rootViewController;
 /** The current slide direction. */
@@ -111,6 +159,8 @@ typedef enum {
 @property (nonatomic, readonly) NSInteger currentPortraitOrientationDistance;
 /** The current landscape orientation slide distance. */
 @property (nonatomic, readonly) NSInteger currentLandscapeOrientationDistance;
+/** Enable panning */
+@property (nonatomic) BOOL panEnabled;
 
 /* @name Creating slide navigation view controller */
 
@@ -135,8 +185,15 @@ typedef enum {
 - (void) slideForViewController:(UIViewController *)viewController 
                       direction:(MWFSlideDirection)direction 
     portraitOrientationDistance:(CGFloat)portraitOrientationDistance
-   landscapeOrientationDistance:(CGFloat)landscapeOrientationDistance;
+   landscapeOrientationDistance:(CGFloat)landscapeOrientationDistance __attribute__((deprecated));
 
+/** Perform slide animation with specified direction. 
+ * The receiver will request view controller to be revealed from its `dataSource` and slide distance from its `delegate`.
+ * 
+ * @param direction The slide direction.
+ */
+- (void) slideWithDirection:(MWFSlideDirection)direction
+;
 @end
 
 #pragma mark - 

@@ -26,7 +26,7 @@
 #import <UIKit/UIKit.h>
 #import "MWFSlideNavigationViewController.h"
 
-@interface MWFDemoMainViewController : UIViewController <MWFSlideNavigationViewControllerDelegate>
+@interface MWFDemoMainViewController : UIViewController <MWFSlideNavigationViewControllerDelegate, MWFSlideNavigationViewControllerDataSource>
 @property (nonatomic, strong) UIButton * slideUpButton;
 @property (nonatomic, strong) UIButton * slideLeftButton;
 @property (nonatomic, strong) UIButton * slideDownButton;
