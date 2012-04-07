@@ -148,9 +148,9 @@ typedef enum {
     MWFSlideDirection _panningDirection;
 }
 /** The receiver's delegate or `nil` if it doesn't have a delegate. */
-@property (nonatomic, weak) id<MWFSlideNavigationViewControllerDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<MWFSlideNavigationViewControllerDelegate> delegate;
 /** The receiver's dataSource or `nil` if it doesn't have a dataSource. */
-@property (nonatomic, weak) id<MWFSlideNavigationViewControllerDataSource> dataSource;
+@property (nonatomic, unsafe_unretained) id<MWFSlideNavigationViewControllerDataSource> dataSource;
 /** The root view controller. */
 @property (nonatomic, strong) UIViewController * rootViewController;
 /** The current slide direction. */
