@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name     = 'ivygulch_MWFSlideNavigationViewController'
+  s.name     = 'MWFSlideNavigationViewController'
   s.version  = '0.0.1'
   s.license  = 'MIT'
   s.summary  = 'IvyGulch fork of MWFSlideNavigationViewController'
