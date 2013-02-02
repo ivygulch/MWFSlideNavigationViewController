@@ -6,6 +6,11 @@ MWFSlideNavigationViewController is a container view controller that manages pri
 It works similar to the Facebook iPhone app, a menu view is revealed when user taps on the menu button. Or in the Piggie app, shortcut buttons view is revealed when user taps the lightning button.
 
 ---
+### Ivy Gulch fork
+
+Add ability to use panning to "close" a sliding panel
+
+---
 ### Licensing
 
 MWFSlideNavigationViewController is licensed under MIT License

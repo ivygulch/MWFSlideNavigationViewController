@@ -28,6 +28,7 @@
     // setup slide navigation view controller instance
     MWFSlideNavigationViewController * slideNavCtl = [[MWFSlideNavigationViewController alloc] initWithRootViewController:navCtl];
     slideNavCtl.panEnabled = YES;
+    slideNavCtl.reversePanEnabled = YES;
 
     self.window.rootViewController = slideNavCtl;
     [self.window makeKeyAndVisible];

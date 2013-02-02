@@ -161,6 +161,8 @@ typedef enum {
 @property (nonatomic, readonly) NSInteger currentLandscapeOrientationDistance;
 /** Enable panning */
 @property (nonatomic) BOOL panEnabled;
+/** Enable reverse panning */
+@property (nonatomic) BOOL reversePanEnabled;
 
 /* @name Creating slide navigation view controller */
 

@@ -130,6 +130,7 @@
 
 //------------------------------------------------------------------------------
 @interface MWFSlideNavigationViewController ()
+
 - (MWFSlideNavigationLayoutView *) _layoutView;
 - (void) _addRootView;
 - (void) _willSlideFor:(UIViewController *)targetCtl direction:(MWFSlideDirection)direction distance:(CGFloat)distance orientation:(UIInterfaceOrientation)orientation;
@@ -449,6 +450,35 @@
             break;
         case UIGestureRecognizerStateEnded:
         {
+            // if reverse panning is enabled, check if the _panningDirection we just completed is the opposite
+            // of where we currently are, if so, close the slideout
+            if (self.reversePanEnabled) {
+                switch (self.currentSlideDirection) {
+                    case MWFSlideDirectionNone:
+                        break;
+                    case MWFSlideDirectionUp:
+                        if (_panningDirection == MWFSlideDirectionDown) {
+                            _panningDirection = MWFSlideDirectionNone;
+                        }
+                        break;
+                    case MWFSlideDirectionLeft:
+                        if (_panningDirection == MWFSlideDirectionRight) {
+                            _panningDirection = MWFSlideDirectionNone;
+                        }
+                        break;
+                    case MWFSlideDirectionDown:
+                        if (_panningDirection == MWFSlideDirectionUp) {
+                            _panningDirection = MWFSlideDirectionNone;
+                        }
+                        break;
+                    case MWFSlideDirectionRight:
+                        if (_panningDirection == MWFSlideDirectionLeft) {
+                            _panningDirection = MWFSlideDirectionNone;
+                        }
+                        break;
+                }
+            }
+
             [self slideWithDirection:_panningDirection];
         }
             break;
@@ -460,7 +490,7 @@
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL) gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
-    return _panEnabled && (self.currentSlideDirection==MWFSlideDirectionNone);
+    return (self.currentSlideDirection==MWFSlideDirectionNone) ? _panEnabled : self.reversePanEnabled;
 }
 @end
 
