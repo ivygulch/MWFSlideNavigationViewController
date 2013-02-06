@@ -164,6 +164,8 @@ typedef enum {
 /** Enable reverse panning */
 @property (nonatomic) BOOL reversePanEnabled;
 
+@property (nonatomic) NSInteger numberOfTouchesToRecognizeSimulataneously;
+
 /* @name Creating slide navigation view controller */
 
 /** Initializes and returns a newly created slide navigation view controller.
@@ -212,5 +214,6 @@ typedef enum {
  * @return The container slide navigation view controller or `nil` if the receiver is not contained in one.
  */
 - (MWFSlideNavigationViewController *) slideNavigationViewController;
+
 
 @end

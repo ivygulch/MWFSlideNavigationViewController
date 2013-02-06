@@ -501,7 +501,7 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
 {
     UIPanGestureRecognizer *panGR = (UIPanGestureRecognizer *) gestureRecognizer;
-    return (panGR.numberOfTouches == 2);
+    return (panGR.numberOfTouches == self.numberOfTouchesToRecognizeSimulataneously);
 }
 
 @end
