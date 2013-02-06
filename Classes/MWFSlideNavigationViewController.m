@@ -431,6 +431,11 @@
     return direction;
 }
 
+- (CGFloat) _panningDistanceForTranslation:(CGPoint)p
+{
+    return (fabsf(p.y) > fabsf(p.x)) ? p.y : p.x;
+}
+
 - (void) panned:(UIPanGestureRecognizer *)gr
 {
     switch (gr.state) {
@@ -492,6 +497,13 @@
 {
     return (self.currentSlideDirection==MWFSlideDirectionNone) ? _panEnabled : self.reversePanEnabled;
 }
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+{
+    UIPanGestureRecognizer *panGR = (UIPanGestureRecognizer *) gestureRecognizer;
+    return (panGR.numberOfTouches == 2);
+}
+
 @end
 
 //------------------------------------------------------------------------------
