@@ -500,8 +500,11 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
 {
-    UIPanGestureRecognizer *panGR = (UIPanGestureRecognizer *) gestureRecognizer;
-    return (panGR.numberOfTouches == self.numberOfTouchesToRecognizeSimulataneously);
+    if ([self.delegate respondsToSelector:@selector(slideNavigationViewController:gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer:)]) {
+        return [self.delegate slideNavigationViewController:self gestureRecognizer:gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
+    } else {
+        return YES;
+    }
 }
 
 @end

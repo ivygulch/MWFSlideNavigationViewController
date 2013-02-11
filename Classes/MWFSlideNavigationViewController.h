@@ -43,7 +43,7 @@ typedef enum {
 #pragma mark - 
 /** The `MWFSlideNavigationViewControllerDelegate` protocol defines methods a slide navigation controller delegate can implement to change the behavior when sliding animation is performed.
  */
-@protocol MWFSlideNavigationViewControllerDelegate 
+@protocol MWFSlideNavigationViewControllerDelegate<NSObject>
 @optional
 /** @name Customizing behavior */
 
@@ -100,6 +100,10 @@ typedef enum {
                    distanceForSlideDirecton:(MWFSlideDirection)direction
                         portraitOrientation:(BOOL)portraitOrientation
 ;
+
+- (BOOL)slideNavigationViewController:(MWFSlideNavigationViewController *)controller
+                    gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
 
 @end
 
@@ -164,8 +168,6 @@ typedef enum {
 /** Enable reverse panning */
 @property (nonatomic) BOOL reversePanEnabled;
 
-@property (nonatomic) NSInteger numberOfTouchesToRecognizeSimulataneously;
-
 /* @name Creating slide navigation view controller */
 
 /** Initializes and returns a newly created slide navigation view controller.
@@ -196,8 +198,8 @@ typedef enum {
  * 
  * @param direction The slide direction.
  */
-- (void) slideWithDirection:(MWFSlideDirection)direction
-;
+- (void) slideWithDirection:(MWFSlideDirection)direction;
+
 @end
 
 #pragma mark - 
